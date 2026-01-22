@@ -3,38 +3,103 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Алишер Навои — сайт на Bootstrap</title>
+  <title>Алишер Навои — исторический сайт (Bootstrap)</title>
 
-  <!-- Bootstrap 5.3.3 (CDN) -->
+  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     :root { scroll-behavior: smooth; }
-    .hero {
-      min-height: 70vh;
+
+    /* Общий "пергамент" */
+    body{
       background:
-        linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.65)),
-        url("https://upload.wikimedia.org/wikipedia/commons/7/7f/Theatre_Alisher_Navoi.JPG") center/cover no-repeat;
+        radial-gradient(1200px 600px at 20% 10%, rgba(120,90,40,.10), transparent 60%),
+        radial-gradient(1000px 500px at 80% 20%, rgba(120,90,40,.08), transparent 55%),
+        linear-gradient(180deg, #f6f0e2, #f3ead7);
+      color:#2a241b;
     }
-    .section-pad { padding: 72px 0; }
-    .rounded-4 { border-radius: 1rem; }
-    .pill { border: 1px solid rgba(255,255,255,.35); }
-    .timeline {
-      position: relative;
-      padding-left: 1.25rem;
-      border-left: 2px solid rgba(0,0,0,.15);
+
+    /* Геометрический узор (встроенный SVG, без внешних ссылок) */
+    .pattern-band{
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Crect width='140' height='140' fill='%23f6f0e2'/%3E%3Cg fill='none' stroke='%238a6b2f' stroke-width='2' opacity='.25'%3E%3Cpath d='M70 10 L100 40 L70 70 L40 40 Z'/%3E%3Cpath d='M70 70 L100 100 L70 130 L40 100 Z'/%3E%3Cpath d='M10 70 L40 40 L70 70 L40 100 Z'/%3E%3Cpath d='M130 70 L100 40 L70 70 L100 100 Z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 140px 140px;
+      border-top: 1px solid rgba(0,0,0,.12);
+      border-bottom: 1px solid rgba(0,0,0,.12);
     }
-    .timeline .item { position: relative; padding-left: 1rem; margin-bottom: 1.25rem; }
-    .timeline .item:before {
-      content: "";
-      position: absolute;
-      left: -1.05rem;
-      top: .35rem;
-      width: .75rem;
-      height: .75rem;
-      border-radius: 999px;
-      background: var(--bs-primary);
-      box-shadow: 0 0 0 .25rem rgba(13,110,253,.15);
+
+    /* Шапка-герой */
+    .hero{
+      min-height: 72vh;
+      background:
+        linear-gradient(180deg, rgba(10,8,6,.70), rgba(10,8,6,.65)),
+        url("img/hero.jpg") center/cover no-repeat;
+      color:#fff;
+    }
+
+    /* "Свиток" для текста */
+    .scroll-card{
+      background: rgba(246,240,226,.92);
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: 0 12px 30px rgba(0,0,0,.12);
+      border-radius: 1.25rem;
+    }
+
+    .section-pad{ padding: 72px 0; }
+    .title-serif{ letter-spacing:.3px; }
+
+    /* Декоративный разделитель */
+    .ornament{
+      display:flex; align-items:center; justify-content:center;
+      gap:12px; color: rgba(138,107,47,.85);
+    }
+    .ornament:before, .ornament:after{
+      content:""; height:1px; width:120px; background: rgba(138,107,47,.45);
+    }
+    .ornament span{
+      font-size: 18px; letter-spacing: 6px;
+    }
+
+    /* Navbar в "историческом" стиле */
+    .navbar{
+      background: linear-gradient(180deg, rgba(32,26,18,.96), rgba(25,20,14,.96));
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .nav-link{ opacity:.9; }
+    .nav-link:hover{ opacity:1; }
+
+    /* Карточки */
+    .card.historic{
+      border: 1px solid rgba(0,0,0,.12);
+      border-radius: 1.25rem;
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      overflow:hidden;
+    }
+    .badge-gold{
+      background: rgba(138,107,47,.18);
+      color:#6e5320;
+      border: 1px solid rgba(138,107,47,.35);
+    }
+
+    /* Таймлайн */
+    .timeline{
+      position:relative; padding-left: 1.25rem;
+      border-left: 2px solid rgba(138,107,47,.35);
+    }
+    .timeline .item{
+      position:relative; padding-left: 1rem; margin-bottom: 1.1rem;
+    }
+    .timeline .item:before{
+      content:""; position:absolute; left:-1.05rem; top:.35rem;
+      width:.75rem; height:.75rem; border-radius: 999px;
+      background: #8a6b2f;
+      box-shadow: 0 0 0 .25rem rgba(138,107,47,.18);
+    }
+
+    footer{
+      background: linear-gradient(180deg, rgba(32,26,18,.96), rgba(25,20,14,.96));
+      color:#fff;
+      border-top: 1px solid rgba(255,255,255,.10);
     }
   </style>
 </head>
@@ -42,9 +107,9 @@
 <body data-bs-spy="scroll" data-bs-target="#topNav" tabindex="0">
 
   <!-- NAVBAR -->
-  <nav id="topNav" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <nav id="topNav" class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-      <a class="navbar-brand fw-semibold" href="#home">Алишер Навои</a>
+      <a class="navbar-brand fw-semibold title-serif" href="#home">Алишер Навои</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
               aria-controls="navMenu" aria-expanded="false" aria-label="Меню">
@@ -64,265 +129,268 @@
   </nav>
 
   <!-- HERO -->
-  <header id="home" class="hero d-flex align-items-center text-white">
+  <header id="home" class="hero d-flex align-items-center">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="d-inline-flex gap-2 flex-wrap mb-3">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+          <div class="d-flex gap-2 flex-wrap mb-3">
             <span class="badge bg-light text-dark">1441–1501</span>
-            <span class="badge pill text-white">поэт • мыслитель • государственный деятель</span>
+            <span class="badge badge-gold">поэт • мыслитель • государственный деятель</span>
           </div>
 
-          <h1 class="display-5 fw-bold mb-3">Сайт-портрет: Алишер Навои</h1>
-          <p class="lead mb-4">
-            Навои — крупнейший представитель чагатайской литературы, писал также на персидском.
+          <h1 class="display-5 fw-bold title-serif">Сайт-портрет: Алишер Навои</h1>
+          <p class="lead mb-4" style="opacity:.92">
+            Крупнейший представитель чагатайской литературы, писавший также на персидском.
             Его творчество укрепило литературный статус тюркского языка.
           </p>
 
           <div class="d-flex gap-2 flex-wrap">
-            <a class="btn btn-primary btn-lg" href="#about">Начать</a>
+            <a class="btn btn-warning btn-lg fw-semibold" href="#about">Начать</a>
             <a class="btn btn-outline-light btn-lg" href="#works">Произведения</a>
           </div>
         </div>
+
+        <div class="col-lg-5">
+          <div class="scroll-card p-4">
+            <div class="ornament mb-3"><span>✦ ✧ ✦</span></div>
+            <h2 class="h5 fw-bold mb-2">Коротко</h2>
+            <ul class="mb-0">
+              <li>Центр эпохи: культурный Герат</li>
+              <li>“Хамса” — цикл пяти поэм</li>
+              <li>Идея: достоинство родного языка</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </header>
 
+  <div class="pattern-band py-3"></div>
+
   <!-- ABOUT -->
   <section id="about" class="section-pad">
     <div class="container">
+      <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
+
       <div class="row g-4 align-items-center">
         <div class="col-lg-5">
-          <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Alisher_Navoiy_1-versiya.jpg"
-              class="img-fluid"
-              alt="Портрет Алишера Навои">
+          <div class="card historic">
+            <img src="img/navoi.jpg" class="img-fluid" alt="Портрет Алишера Навои">
             <div class="card-body">
-              <h2 class="h4 fw-bold mb-1">Кто такой Навои?</h2>
-              <p class="text-secondary mb-0">
-                Тимуридский поэт и государственный деятель, связанный с культурной жизнью Герата.
+              <h2 class="h4 fw-bold mb-1 title-serif">Краткая биография</h2>
+              <p class="mb-0 text-secondary">
+                Навои (1441–1501) — поэт и государственный деятель. Его литературное наследие стало символом культурного расцвета эпохи.
               </p>
             </div>
           </div>
         </div>
 
         <div class="col-lg-7">
-          <h2 class="fw-bold mb-3">Краткая биография</h2>
-          <p class="mb-3">
-            Алишер Навои (1441–1501) — поэт, писатель и государственный деятель.
-            Известен как крупнейший автор чагатайской литературы; выступал за высокие возможности тюркского языка
-            для литературы и культуры.
-          </p>
-
-          <div class="row g-3">
-            <div class="col-md-6">
-              <div class="card h-100 border-0 shadow-sm rounded-4">
-                <div class="card-body">
-                  <h3 class="h5 fw-semibold">Языки</h3>
-                  <p class="mb-0 text-secondary">
-                    Писал на чагатайском (тюркском) и персидском; в тюркской традиции известен под псевдонимом “Навои”.
-                  </p>
+          <div class="card historic">
+            <div class="card-body p-4">
+              <h3 class="h5 fw-bold mb-3">Почему он важен</h3>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="p-3 rounded-4" style="background: rgba(138,107,47,.10); border:1px solid rgba(138,107,47,.20);">
+                    <div class="fw-semibold">Язык и литература</div>
+                    <div class="text-secondary">Развивал традицию письма на тюркском (чагатайском) языке.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3 rounded-4" style="background: rgba(138,107,47,.10); border:1px solid rgba(138,107,47,.20);">
+                    <div class="fw-semibold">Культура и меценатство</div>
+                    <div class="text-secondary">Поддерживал образование, искусство, книжную культуру.</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-6">
-              <div class="card h-100 border-0 shadow-sm rounded-4">
-                <div class="card-body">
-                  <h3 class="h5 fw-semibold">Вклад</h3>
-                  <p class="mb-0 text-secondary">
-                    Создал крупные поэтические циклы, включая “Хамсу”, и написал трактат о языках.
-                  </p>
-                </div>
+              <div class="mt-3 small text-secondary">
+                *Текст можно расширить под требования преподавателя (2–3 абзаца дополнительно).
               </div>
             </div>
-          </div>
-
-          <div class="alert alert-info rounded-4 mt-3 mb-0">
-            <strong>Важно для задания:</strong> сайт сделан на Bootstrap и адаптивен (телефон/планшет/ПК).
           </div>
         </div>
+
       </div>
     </div>
   </section>
+
+  <div class="pattern-band py-3"></div>
 
   <!-- TIMELINE -->
-  <section id="timeline" class="section-pad bg-light">
+  <section id="timeline" class="section-pad">
     <div class="container">
+      <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
+
       <div class="row g-4">
         <div class="col-lg-5">
-          <h2 class="fw-bold mb-3">Хронология</h2>
-          <p class="text-secondary mb-0">
-            Коротко по ключевым вехам (можешь расширить по требованиям преподавателя).
-          </p>
+          <h2 class="fw-bold title-serif mb-2">Хронология</h2>
+          <p class="text-secondary mb-0">Ключевые вехи жизни и творчества.</p>
         </div>
-
         <div class="col-lg-7">
-          <div class="p-4 bg-white rounded-4 shadow-sm">
-            <div class="timeline">
-              <div class="item">
-                <h3 class="h5 mb-1">1441 — рождение</h3>
-                <p class="mb-0 text-secondary">Родился в Герате (Тимуридская держава).</p>
-              </div>
-              <div class="item">
-                <h3 class="h5 mb-1">Двор и служба</h3>
-                <p class="mb-0 text-secondary">Занимал должности при дворе, участвовал в культурной жизни.</p>
-              </div>
-              <div class="item">
-                <h3 class="h5 mb-1">“Хамса” и крупные тексты</h3>
-                <p class="mb-0 text-secondary">Создал цикл из пяти поэм (“Хамса”) и другие работы.</p>
-              </div>
-              <div class="item mb-0">
-                <h3 class="h5 mb-1">1501 — смерть</h3>
-                <p class="mb-0 text-secondary">Скончался в Герате.</p>
+          <div class="card historic">
+            <div class="card-body p-4">
+              <div class="timeline">
+                <div class="item">
+                  <h3 class="h6 fw-bold mb-1">1441 — рождение</h3>
+                  <div class="text-secondary">Герат — один из культурных центров эпохи.</div>
+                </div>
+                <div class="item">
+                  <h3 class="h6 fw-bold mb-1">Учёба и круг общения</h3>
+                  <div class="text-secondary">Формирование как поэта и мыслителя.</div>
+                </div>
+                <div class="item">
+                  <h3 class="h6 fw-bold mb-1">Создание крупных произведений</h3>
+                  <div class="text-secondary">“Хамса” и поэтические сборники.</div>
+                </div>
+                <div class="item mb-0">
+                  <h3 class="h6 fw-bold mb-1">1501 — смерть</h3>
+                  <div class="text-secondary">Наследие продолжает влиять на культуру региона.</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
+
+  <div class="pattern-band py-3"></div>
 
   <!-- WORKS -->
   <section id="works" class="section-pad">
     <div class="container">
+      <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
+
       <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
         <div>
-          <h2 class="fw-bold mb-1">Произведения</h2>
-          <p class="text-secondary mb-0">Карточки сделаны компонентами Bootstrap.</p>
+          <h2 class="fw-bold title-serif mb-1">Произведения</h2>
+          <p class="text-secondary mb-0">Список можно расширить.</p>
         </div>
-        <span class="badge text-bg-secondary">Bootstrap Cards</span>
+        <span class="badge badge-gold">историческая подборка</span>
       </div>
 
       <div class="row g-4">
         <div class="col-md-6 col-lg-4">
-          <div class="card h-100 border-0 shadow-sm rounded-4">
+          <div class="card historic h-100">
             <div class="card-body">
-              <h3 class="h5 fw-semibold">“Хамса”</h3>
-              <p class="text-secondary mb-3">
-                Цикл из пяти эпических поэм — одна из вершин творчества.
-              </p>
-              <span class="badge text-bg-primary">эпос</span>
+              <h3 class="h5 fw-bold">“Хамса”</h3>
+              <p class="text-secondary mb-3">Цикл из пяти эпических поэм.</p>
+              <span class="badge text-bg-dark">эпос</span>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <div class="card h-100 border-0 shadow-sm rounded-4">
+          <div class="card historic h-100">
             <div class="card-body">
-              <h3 class="h5 fw-semibold">Диваны (сборники лирики)</h3>
-              <p class="text-secondary mb-3">
-                Собрания лирических стихотворений, распределённых по периодам жизни.
-              </p>
-              <span class="badge text-bg-primary">лирика</span>
+              <h3 class="h5 fw-bold">Диваны (лирика)</h3>
+              <p class="text-secondary mb-3">Собрания лирических стихов.</p>
+              <span class="badge text-bg-dark">лирика</span>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <div class="card h-100 border-0 shadow-sm rounded-4">
+          <div class="card historic h-100">
             <div class="card-body">
-              <h3 class="h5 fw-semibold">“Muhakamat al-Lughatayn”</h3>
-              <p class="text-secondary mb-3">
-                Трактат о сравнении языков и выразительности речи.
-              </p>
-              <span class="badge text-bg-primary">трактат</span>
+              <h3 class="h5 fw-bold">“Muhakamat al-Lughatayn”</h3>
+              <p class="text-secondary mb-3">Размышления о языке и выразительности речи.</p>
+              <span class="badge text-bg-dark">трактат</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ACCORDION -->
       <div class="accordion mt-4" id="faq">
         <div class="accordion-item">
-          <h2 class="accordion-header" id="h1">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c1"
-                    aria-expanded="false" aria-controls="c1">
-              Какие компоненты Bootstrap использованы?
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c1">
+              Что использовано из Bootstrap?
             </button>
           </h2>
-          <div id="c1" class="accordion-collapse collapse" aria-labelledby="h1" data-bs-parent="#faq">
+          <div id="c1" class="accordion-collapse collapse" data-bs-parent="#faq">
             <div class="accordion-body">
-              Navbar (меню), Grid (сетка), Cards (карточки), Accordion (вопрос-ответ), Badges (метки), Buttons и типографика.
+              Navbar, Grid, Cards, Accordion, Buttons, Badges + адаптивная вёрстка.
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
+  <div class="pattern-band py-3"></div>
+
   <!-- GALLERY -->
-  <section id="gallery" class="section-pad bg-light">
+  <section id="gallery" class="section-pad">
     <div class="container">
+      <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
+
       <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
         <div>
-          <h2 class="fw-bold mb-1">Галерея</h2>
-          <p class="text-secondary mb-0">Секция для иллюстраций (Bootstrap Grid).</p>
+          <h2 class="fw-bold title-serif mb-1">Галерея</h2>
+          <p class="text-secondary mb-0">Теперь картинки локальные — будут открываться всегда.</p>
         </div>
-        <span class="badge text-bg-secondary">Bootstrap Grid</span>
+        <span class="badge badge-gold">узор • пергамент • эпоха</span>
       </div>
 
       <div class="row g-4">
         <div class="col-md-6 col-lg-4">
-          <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Theatre_Alisher_Navoi.JPG" class="img-fluid" alt="Театр имени Алишера Навои">
+          <div class="card historic h-100">
+            <img src="img/gallery1.jpg" class="img-fluid" alt="Изображение Навои">
             <div class="card-body">
-              <p class="mb-0 text-secondary">Театр имени Алишера Навои (Ташкент).</p>
+              <p class="mb-0 text-secondary">Иллюстрация/портрет (локальный файл).</p>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Alisher_Navoiy_1-versiya.jpg" class="img-fluid" alt="Портрет Навои">
+          <div class="card historic h-100">
+            <img src="img/gallery2.jpg" class="img-fluid" alt="Театр имени Алишера Навои">
             <div class="card-body">
-              <p class="mb-0 text-secondary">Портрет (иллюстрация).</p>
+              <p class="mb-0 text-secondary">Театр имени Алишера Навои (локальный файл).</p>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Ali-Shir_Nava%27i.jpg" class="img-fluid" alt="Изображение Навои">
+          <div class="card historic h-100">
+            <img src="img/navoi.jpg" class="img-fluid" alt="Портрет Навои">
             <div class="card-body">
-              <p class="mb-0 text-secondary">Ещё одно изображение (Wikimedia).</p>
+              <p class="mb-0 text-secondary">Портрет Навои (локальный файл).</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="alert alert-warning rounded-4 mt-4 mb-0">
-        Если картинки не открываются в твоей сети — скажи, сделаю вариант с локальными файлами (img/).
-      </div>
     </div>
   </section>
+
+  <div class="pattern-band py-3"></div>
 
   <!-- SOURCES -->
   <section id="sources" class="section-pad">
     <div class="container">
-      <h2 class="fw-bold mb-3">Источники</h2>
-      <ol class="mb-4">
-        <li>
-          Britannica — справка о Navāʾī (даты, роль в чагатайской литературе).
-        </li>
-        <li>
-          Wikipedia — биография и обзор творчества.
-  </li>
-      </ol>
+      <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
 
-      <p class="text-secondary mb-0">
-        *Если преподаватель требует именно “ссылки”: открой в браузере и скопируй URL в этот список.
-      </p>
+      <h2 class="fw-bold title-serif mb-3">Источники</h2>
+      <ol class="mb-0">
+        <li>Britannica — справка о Navāʾī (роль в чагатайской литературе).</li>
+        <li>Wikipedia — биография и обзор творчества.</li>
+      </ol>
+      <div class="text-secondary small mt-3">
+        Совет: если преподаватель требует “URL”, просто вставь ссылки сюда текстом.
+      </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-4 bg-dark text-white">
+  <footer class="py-4">
     <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
       <div>© <span id="year"></span> Сайт про Алишера Навои</div>
-      <div class="small text-white-50">Сделано на Bootstrap 5</div>
+      <div class="small" style="opacity:.75">Bootstrap 5 • исторический стиль</div>
     </div>
   </footer>
 
