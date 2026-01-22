@@ -1,84 +1,132 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Алишер Навои — исторический сайт (Bootstrap)</title>
+  <title>Алишер Навои — исторический сайт</title>
 
-  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    :root { scroll-behavior: smooth; }
+    :root{
+      --bg: #f6f0e2;
+      --bg2:#f2e6cf;
+      --text:#241f17;
+      --muted:#5a4e3a;
+      --card:#fffaf0;
+      --border: rgba(0,0,0,.12);
+      --shadow: 0 14px 35px rgba(0,0,0,.10);
+      --accent:#8a6b2f;
+      --accent2:#1f6feb;
+      --nav: rgba(32,26,18,.96);
+      --navText:#ffffff;
+      --heroOverlay1: rgba(10,8,6,.72);
+      --heroOverlay2: rgba(10,8,6,.64);
+    }
 
-    /* Общий "пергамент" */
+    html[data-theme="dark"]{
+      --bg:#0f1115;
+      --bg2:#141824;
+      --text:#e7e3da;
+      --muted:#b7b0a2;
+      --card:#141824;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 16px 40px rgba(0,0,0,.45);
+      --accent:#d4b15f;
+      --accent2:#5aa2ff;
+      --nav: rgba(10,12,18,.92);
+      --navText:#ffffff;
+      --heroOverlay1: rgba(0,0,0,.70);
+      --heroOverlay2: rgba(0,0,0,.55);
+    }
+
+    :root{ scroll-behavior:smooth; }
     body{
       background:
-        radial-gradient(1200px 600px at 20% 10%, rgba(120,90,40,.10), transparent 60%),
-        radial-gradient(1000px 500px at 80% 20%, rgba(120,90,40,.08), transparent 55%),
-        linear-gradient(180deg, #f6f0e2, #f3ead7);
-      color:#2a241b;
+        radial-gradient(1200px 600px at 18% 8%, rgba(138,107,47,.12), transparent 62%),
+        radial-gradient(1000px 500px at 82% 12%, rgba(31,111,235,.10), transparent 58%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color: var(--text);
     }
 
-    /* Геометрический узор (встроенный SVG, без внешних ссылок) */
+    /* Узоры (встроенный SVG, всегда работает) */
     .pattern-band{
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Crect width='140' height='140' fill='%23f6f0e2'/%3E%3Cg fill='none' stroke='%238a6b2f' stroke-width='2' opacity='.25'%3E%3Cpath d='M70 10 L100 40 L70 70 L40 40 Z'/%3E%3Cpath d='M70 70 L100 100 L70 130 L40 100 Z'/%3E%3Cpath d='M10 70 L40 40 L70 70 L40 100 Z'/%3E%3Cpath d='M130 70 L100 40 L70 70 L100 100 Z'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 140px 140px;
-      border-top: 1px solid rgba(0,0,0,.12);
-      border-bottom: 1px solid rgba(0,0,0,.12);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='none'/%3E%3Cg fill='none' stroke='%23a67c2d' stroke-width='2' opacity='.22'%3E%3Cpath d='M80 12 L112 44 L80 76 L48 44 Z'/%3E%3Cpath d='M80 84 L112 116 L80 148 L48 116 Z'/%3E%3Cpath d='M12 80 L44 48 L76 80 L44 112 Z'/%3E%3Cpath d='M148 80 L116 48 L84 80 L116 112 Z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      opacity: .9;
     }
 
-    /* Шапка-герой */
+    .container-narrow{ max-width: 1020px; }
+
+    /* Читаемость текста */
+    .readable{
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text);
+    }
+    .muted{ color: var(--muted) !important; }
+    .title-serif{ letter-spacing:.2px; }
+    .section-pad{ padding: 76px 0; }
+
+    /* Navbar */
+    .navbar{
+      background: linear-gradient(180deg, var(--nav), var(--nav));
+      border-bottom: 1px solid var(--border);
+    }
+    .navbar .nav-link{ opacity:.92; }
+    .navbar .nav-link:hover{ opacity:1; }
+
+    /* HERO */
     .hero{
       min-height: 72vh;
+      position: relative;
+      color: #fff;
       background:
-        linear-gradient(180deg, rgba(10,8,6,.70), rgba(10,8,6,.65)),
+        linear-gradient(180deg, var(--heroOverlay1), var(--heroOverlay2)),
         url("img/hero.jpg") center/cover no-repeat;
-      color:#fff;
+      overflow:hidden;
     }
-
-    /* "Свиток" для текста */
-    .scroll-card{
-      background: rgba(246,240,226,.92);
-      border: 1px solid rgba(0,0,0,.12);
-      box-shadow: 0 12px 30px rgba(0,0,0,.12);
-      border-radius: 1.25rem;
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(600px 300px at 20% 30%, rgba(212,177,95,.18), transparent 60%),
+        radial-gradient(700px 380px at 80% 25%, rgba(90,162,255,.14), transparent 62%);
+      pointer-events:none;
     }
-
-    .section-pad{ padding: 72px 0; }
-    .title-serif{ letter-spacing:.3px; }
-
-    /* Декоративный разделитель */
-    .ornament{
-      display:flex; align-items:center; justify-content:center;
-      gap:12px; color: rgba(138,107,47,.85);
-    }
-    .ornament:before, .ornament:after{
-      content:""; height:1px; width:120px; background: rgba(138,107,47,.45);
-    }
-    .ornament span{
-      font-size: 18px; letter-spacing: 6px;
-    }
-
-    /* Navbar в "историческом" стиле */
-    .navbar{
-      background: linear-gradient(180deg, rgba(32,26,18,.96), rgba(25,20,14,.96));
-      border-bottom: 1px solid rgba(255,255,255,.10);
-    }
-    .nav-link{ opacity:.9; }
-    .nav-link:hover{ opacity:1; }
+    .hero-inner{ position:relative; z-index:1; }
 
     /* Карточки */
     .card.historic{
-      border: 1px solid rgba(0,0,0,.12);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 1.25rem;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
+
     .badge-gold{
       background: rgba(138,107,47,.18);
-      color:#6e5320;
+      color: var(--accent);
       border: 1px solid rgba(138,107,47,.35);
+    }
+
+    /* Орнамент-разделитель */
+    .ornament{
+      display:flex; align-items:center; justify-content:center;
+      gap:12px; color: rgba(138,107,47,.95);
+    }
+    .ornament:before, .ornament:after{
+      content:""; height:1px; width:140px; background: rgba(138,107,47,.40);
+    }
+    html[data-theme="dark"] .ornament{
+      color: rgba(212,177,95,.95);
+    }
+    html[data-theme="dark"] .ornament:before,
+    html[data-theme="dark"] .ornament:after{
+      background: rgba(212,177,95,.35);
     }
 
     /* Таймлайн */
@@ -86,20 +134,66 @@
       position:relative; padding-left: 1.25rem;
       border-left: 2px solid rgba(138,107,47,.35);
     }
-    .timeline .item{
-      position:relative; padding-left: 1rem; margin-bottom: 1.1rem;
-    }
+    html[data-theme="dark"] .timeline{ border-left-color: rgba(212,177,95,.35); }
+    .timeline .item{ position:relative; padding-left: 1rem; margin-bottom: 1.1rem; }
     .timeline .item:before{
       content:""; position:absolute; left:-1.05rem; top:.35rem;
       width:.75rem; height:.75rem; border-radius: 999px;
-      background: #8a6b2f;
+      background: var(--accent);
       box-shadow: 0 0 0 .25rem rgba(138,107,47,.18);
+    }
+    html[data-theme="dark"] .timeline .item:before{
+      box-shadow: 0 0 0 .25rem rgba(212,177,95,.14);
+    }
+
+    /* Галерея: одинаковая высота + без пустых полей */
+    .gallery-card{ height: 100%; }
+    .gallery-img{
+      width:100%;
+      height: 260px;              /* фикс высота */
+      object-fit: cover;          /* аккуратно кадрирует */
+      object-position: center;    /* центр */
+      display:block;
+    }
+
+    /* 3D/tilt эффект (мягкий) */
+    .tilt{
+      transform-style: preserve-3d;
+      transition: transform .18s ease, box-shadow .18s ease;
+      will-change: transform;
+    }
+    .tilt:hover{
+      box-shadow: 0 22px 55px rgba(0,0,0,.14);
+    }
+    html[data-theme="dark"] .tilt:hover{
+      box-shadow: 0 26px 60px rgba(0,0,0,.55);
     }
 
     footer{
-      background: linear-gradient(180deg, rgba(32,26,18,.96), rgba(25,20,14,.96));
+      background: linear-gradient(180deg, var(--nav), var(--nav));
+      color: var(--navText);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Кнопка темы */
+    .theme-btn{
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.08);
       color:#fff;
-      border-top: 1px solid rgba(255,255,255,.10);
+      border-radius: 999px;
+      padding: .45rem .75rem;
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+    }
+    .theme-dot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--accent2);
+      box-shadow: 0 0 0 .2rem rgba(90,162,255,.15);
+    }
+    html[data-theme="dark"] .theme-dot{
+      background: var(--accent);
+      box-shadow: 0 0 0 .2rem rgba(212,177,95,.12);
     }
   </style>
 </head>
@@ -111,16 +205,25 @@
     <div class="container">
       <a class="navbar-brand fw-semibold title-serif" href="#home">Алишер Навои</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
-              aria-controls="navMenu" aria-expanded="false" aria-label="Меню">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="d-flex align-items-center gap-2 order-lg-2">
+        <button id="themeToggle" class="theme-btn" type="button" aria-label="Переключить тему">
+          <span class="theme-dot"></span>
+          <span id="themeLabel" class="small">Светлая</span>
+        </button>
 
-      <div class="collapse navbar-collapse" id="navMenu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+                aria-controls="navMenu" aria-expanded="false" aria-label="Меню">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse order-lg-1" id="navMenu">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="#about">О нём</a></li>
+          <li class="nav-item"><a class="nav-link" href="#legacy">Вклад</a></li>
           <li class="nav-item"><a class="nav-link" href="#timeline">Хронология</a></li>
           <li class="nav-item"><a class="nav-link" href="#works">Произведения</a></li>
+          <li class="nav-item"><a class="nav-link" href="#facts">Факты</a></li>
           <li class="nav-item"><a class="nav-link" href="#gallery">Галерея</a></li>
           <li class="nav-item"><a class="nav-link" href="#sources">Источники</a></li>
         </ul>
@@ -130,7 +233,7 @@
 
   <!-- HERO -->
   <header id="home" class="hero d-flex align-items-center">
-    <div class="container">
+    <div class="container hero-inner">
       <div class="row g-4 align-items-center">
         <div class="col-lg-7">
           <div class="d-flex gap-2 flex-wrap mb-3">
@@ -138,10 +241,10 @@
             <span class="badge badge-gold">поэт • мыслитель • государственный деятель</span>
           </div>
 
-          <h1 class="display-5 fw-bold title-serif">Сайт-портрет: Алишер Навои</h1>
-          <p class="lead mb-4" style="opacity:.92">
-            Крупнейший представитель чагатайской литературы, писавший также на персидском.
-            Его творчество укрепило литературный статус тюркского языка.
+          <h1 class="display-5 fw-bold title-serif mb-3">Сайт-портрет: Алишер Навои</h1>
+          <p class="lead mb-4" style="opacity:.94; max-width: 52ch;">
+            Один из крупнейших авторов Востока. Его творчество укрепило литературный статус тюркского (чагатайского) языка,
+            а поэмы и трактаты стали частью культурного наследия региона.
           </p>
 
           <div class="d-flex gap-2 flex-wrap">
@@ -151,14 +254,16 @@
         </div>
 
         <div class="col-lg-5">
-          <div class="scroll-card p-4">
-            <div class="ornament mb-3"><span>✦ ✧ ✦</span></div>
-            <h2 class="h5 fw-bold mb-2">Коротко</h2>
-            <ul class="mb-0">
-              <li>Центр эпохи: культурный Герат</li>
-              <li>“Хамса” — цикл пяти поэм</li>
-              <li>Идея: достоинство родного языка</li>
-            </ul>
+          <div class="card historic tilt">
+            <div class="card-body p-4">
+              <div class="ornament mb-3"><span>✦ ✧ ✦</span></div>
+              <h2 class="h5 fw-bold mb-2 title-serif">Коротко о нём</h2>
+              <ul class="mb-0 readable muted">
+                <li>Центр эпохи — Герат (культурный расцвет)</li>
+                <li>Создал «Хамсу» — пять эпических поэм</li>
+                <li>Отстаивал достоинство родного языка</li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -170,43 +275,46 @@
 
   <!-- ABOUT -->
   <section id="about" class="section-pad">
-    <div class="container">
+    <div class="container container-narrow">
       <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
 
       <div class="row g-4 align-items-center">
         <div class="col-lg-5">
-          <div class="card historic">
+          <div class="card historic tilt">
             <img src="img/navoi.jpg" class="img-fluid" alt="Портрет Алишера Навои">
             <div class="card-body">
-              <h2 class="h4 fw-bold mb-1 title-serif">Краткая биография</h2>
-              <p class="mb-0 text-secondary">
-                Навои (1441–1501) — поэт и государственный деятель. Его литературное наследие стало символом культурного расцвета эпохи.
-              </p>
+              <h2 class="h4 fw-bold mb-1 title-serif">Биография</h2>
+              <div class="muted readable">
+                Алишер Навои — поэт и государственный деятель тимуридской эпохи. Он писал на чагатайском (тюркском) и персидском,
+                много сделал для развития литературы и культуры, а также поддерживал образование и искусство.
+              </div>
             </div>
           </div>
         </div>
 
         <div class="col-lg-7">
-          <div class="card historic">
+          <div class="card historic tilt">
             <div class="card-body p-4">
-              <h3 class="h5 fw-bold mb-3">Почему он важен</h3>
+              <h3 class="h5 fw-bold mb-3 title-serif">Главные идеи</h3>
+
               <div class="row g-3">
                 <div class="col-md-6">
                   <div class="p-3 rounded-4" style="background: rgba(138,107,47,.10); border:1px solid rgba(138,107,47,.20);">
-                    <div class="fw-semibold">Язык и литература</div>
-                    <div class="text-secondary">Развивал традицию письма на тюркском (чагатайском) языке.</div>
+                    <div class="fw-semibold">Сила слова</div>
+                    <div class="muted readable">Поэзия — способ сохранять память, ценности и историю народа.</div>
                   </div>
                 </div>
+
                 <div class="col-md-6">
-                  <div class="p-3 rounded-4" style="background: rgba(138,107,47,.10); border:1px solid rgba(138,107,47,.20);">
-                    <div class="fw-semibold">Культура и меценатство</div>
-                    <div class="text-secondary">Поддерживал образование, искусство, книжную культуру.</div>
+                  <div class="p-3 rounded-4" style="background: rgba(31,111,235,.08); border:1px solid rgba(31,111,235,.18);">
+                    <div class="fw-semibold">Развитие культуры</div>
+                    <div class="muted readable">Книги, образование и искусство — основа устойчивого государства.</div>
                   </div>
                 </div>
               </div>
 
-              <div class="mt-3 small text-secondary">
-                *Текст можно расширить под требования преподавателя (2–3 абзаца дополнительно).
+              <div class="mt-3 muted readable">
+                В его произведениях часто встречаются темы нравственности, справедливости, знания и уважения к человеку.
               </div>
             </div>
           </div>
@@ -218,35 +326,89 @@
 
   <div class="pattern-band py-3"></div>
 
+  <!-- LEGACY -->
+  <section id="legacy" class="section-pad">
+    <div class="container container-narrow">
+      <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
+
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
+        <div>
+          <h2 class="fw-bold title-serif mb-1">Вклад в культуру</h2>
+          <p class="muted readable mb-0" style="max-width: 70ch;">
+            Навои вошёл в историю как автор, который показал богатство тюркского литературного языка и создал произведения,
+            сравнимые по масштабу с классическими традициями Востока.
+          </p>
+        </div>
+        <span class="badge badge-gold">литература • культура • меценатство</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card historic tilt h-100">
+            <div class="card-body">
+              <h3 class="h5 fw-bold title-serif">Литература</h3>
+              <p class="muted readable mb-0">Развил поэтические жанры и укрепил статус тюркского (чагатайского) языка.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card historic tilt h-100">
+            <div class="card-body">
+              <h3 class="h5 fw-bold title-serif">Государство</h3>
+              <p class="muted readable mb-0">Участвовал в управлении и поддерживал просвещение, ремёсла и искусство.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card historic tilt h-100">
+            <div class="card-body">
+              <h3 class="h5 fw-bold title-serif">Наследие</h3>
+              <p class="muted readable mb-0">Его имя носят театры, улицы, учреждения; произведения изучают до сих пор.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="pattern-band py-3"></div>
+
   <!-- TIMELINE -->
   <section id="timeline" class="section-pad">
-    <div class="container">
+    <div class="container container-narrow">
       <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
 
       <div class="row g-4">
         <div class="col-lg-5">
           <h2 class="fw-bold title-serif mb-2">Хронология</h2>
-          <p class="text-secondary mb-0">Ключевые вехи жизни и творчества.</p>
+          <p class="muted readable mb-0">Ключевые вехи жизни и творчества.</p>
         </div>
         <div class="col-lg-7">
-          <div class="card historic">
+          <div class="card historic tilt">
             <div class="card-body p-4">
-              <div class="timeline">
+              <div class="timeline readable">
                 <div class="item">
-                  <h3 class="h6 fw-bold mb-1">1441 — рождение</h3>
-                  <div class="text-secondary">Герат — один из культурных центров эпохи.</div>
+                  <div class="fw-semibold">1441</div>
+                  <div class="muted">Рождение в Герате.</div>
                 </div>
                 <div class="item">
-                  <h3 class="h6 fw-bold mb-1">Учёба и круг общения</h3>
-                  <div class="text-secondary">Формирование как поэта и мыслителя.</div>
+                  <div class="fw-semibold">Юность и обучение</div>
+                  <div class="muted">Формирование как поэта и мыслителя.</div>
                 </div>
                 <div class="item">
-                  <h3 class="h6 fw-bold mb-1">Создание крупных произведений</h3>
-                  <div class="text-secondary">“Хамса” и поэтические сборники.</div>
+                  <div class="fw-semibold">Расцвет творчества</div>
+                  <div class="muted">Создание поэм и лирических сборников.</div>
+                </div>
+                <div class="item">
+                  <div class="fw-semibold">Трактаты</div>
+                  <div class="muted">Размышления о языке, культуре и нравственности.</div>
                 </div>
                 <div class="item mb-0">
-                  <h3 class="h6 fw-bold mb-1">1501 — смерть</h3>
-                  <div class="text-secondary">Наследие продолжает влиять на культуру региона.</div>
+                  <div class="fw-semibold">1501</div>
+                  <div class="muted">Смерть в Герате. Наследие продолжает влиять на культуру.</div>
                 </div>
               </div>
             </div>
@@ -261,44 +423,52 @@
 
   <!-- WORKS -->
   <section id="works" class="section-pad">
-    <div class="container">
+    <div class="container container-narrow">
       <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
 
       <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
         <div>
           <h2 class="fw-bold title-serif mb-1">Произведения</h2>
-          <p class="text-secondary mb-0">Список можно расширить.</p>
+          <p class="muted readable mb-0">Самые известные работы и «Хамса».</p>
         </div>
-        <span class="badge badge-gold">историческая подборка</span>
+        <span class="badge badge-gold">классика Востока</span>
       </div>
 
       <div class="row g-4">
         <div class="col-md-6 col-lg-4">
-          <div class="card historic h-100">
+          <div class="card historic tilt h-100">
             <div class="card-body">
-              <h3 class="h5 fw-bold">“Хамса”</h3>
-              <p class="text-secondary mb-3">Цикл из пяти эпических поэм.</p>
-              <span class="badge text-bg-dark">эпос</span>
+              <h3 class="h5 fw-bold title-serif">«Хамса»</h3>
+              <p class="muted readable mb-3">Цикл из пяти эпических поэм.</p>
+              <ul class="muted readable mb-0">
+                <li>«Хайрат ул-абрар»</li>
+                <li>«Фархад и Ширин»</li>
+                <li>«Лейли и Меджнун»</li>
+                <li>«Сабаи сайяр»</li>
+                <li>«Садди Искандари»</li>
+              </ul>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <div class="card historic h-100">
+          <div class="card historic tilt h-100">
             <div class="card-body">
-              <h3 class="h5 fw-bold">Диваны (лирика)</h3>
-              <p class="text-secondary mb-3">Собрания лирических стихов.</p>
-              <span class="badge text-bg-dark">лирика</span>
+              <h3 class="h5 fw-bold title-serif">Лирика (диваны)</h3>
+              <p class="muted readable mb-0">
+                Лирические стихотворения о любви, мудрости, нравственности и человеческом достоинстве.
+              </p>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <div class="card historic h-100">
+          <div class="card historic tilt h-100">
             <div class="card-body">
-              <h3 class="h5 fw-bold">“Muhakamat al-Lughatayn”</h3>
-              <p class="text-secondary mb-3">Размышления о языке и выразительности речи.</p>
-              <span class="badge text-bg-dark">трактат</span>
+              <h3 class="h5 fw-bold title-serif">Трактат о языке</h3>
+              <p class="muted readable mb-0">
+                «Muhakamat al-Lughatayn» — размышления о возможностях языков и выразительности речи.
+              </p>
             </div>
           </div>
         </div>
@@ -312,12 +482,69 @@
             </button>
           </h2>
           <div id="c1" class="accordion-collapse collapse" data-bs-parent="#faq">
-            <div class="accordion-body">
-              Navbar, Grid, Cards, Accordion, Buttons, Badges + адаптивная вёрстка.
+            <div class="accordion-body readable muted">
+              Navbar, Grid, Cards, Accordion, Buttons, адаптивная вёрстка + кастомные стили для исторического оформления.
             </div>
           </div>
         </div>
       </div>
+
+    </div>
+  </section>
+
+  <div class="pattern-band py-3"></div>
+
+  <!-- FACTS -->
+  <section id="facts" class="section-pad">
+    <div class="container container-narrow">
+      <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
+
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
+        <div>
+          <h2 class="fw-bold title-serif mb-1">Интересные факты</h2>
+          <p class="muted readable mb-0">Короткие пункты для “исторического” ощущения.</p>
+        </div>
+        <span class="badge badge-gold">коротко и по делу</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card historic tilt h-100">
+            <div class="card-body">
+              <h3 class="h6 fw-bold title-serif">Псевдоним</h3>
+              <p class="muted readable mb-0">«Навои» связывают с образом “мелодии/звука” — поэтическая подпись автора.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card historic tilt h-100">
+            <div class="card-body">
+              <h3 class="h6 fw-bold title-serif">Культурный центр</h3>
+              <p class="muted readable mb-0">Герат был одним из важнейших центров искусства и книжной культуры.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card historic tilt h-100">
+            <div class="card-body">
+              <h3 class="h6 fw-bold title-serif">Темы</h3>
+              <p class="muted readable mb-0">Мудрость, справедливость, нравственность и ценность знания — частые мотивы.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card historic tilt h-100">
+            <div class="card-body">
+              <h3 class="h6 fw-bold title-serif">Наследие</h3>
+              <p class="muted readable mb-0">Его имя носят театры и учреждения, а творчество изучают и сегодня.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -325,41 +552,41 @@
 
   <!-- GALLERY -->
   <section id="gallery" class="section-pad">
-    <div class="container">
+    <div class="container container-narrow">
       <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
 
       <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
         <div>
           <h2 class="fw-bold title-serif mb-1">Галерея</h2>
-          <p class="text-secondary mb-0">Теперь картинки локальные — будут открываться всегда.</p>
+          <p class="muted readable mb-0">Локальные изображения из папки <b>img/</b>.</p>
         </div>
-        <span class="badge badge-gold">узор • пергамент • эпоха</span>
+        <span class="badge badge-gold">3 фото • ровно</span>
       </div>
 
       <div class="row g-4">
         <div class="col-md-6 col-lg-4">
-          <div class="card historic h-100">
-            <img src="img/gallery1.jpg" class="img-fluid" alt="Изображение Навои">
+          <div class="card historic tilt gallery-card h-100">
+            <img src="img/gallery1.jpg" class="gallery-img" alt="Галерея 1">
             <div class="card-body">
-              <p class="mb-0 text-secondary">Иллюстрация/портрет (локальный файл).</p>
+              <div class="muted readable">Иллюстрация / миниатюра.</div>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <div class="card historic h-100">
-            <img src="img/gallery2.jpg" class="img-fluid" alt="Театр имени Алишера Навои">
+          <div class="card historic tilt gallery-card h-100">
+            <img src="img/gallery2.jpg" class="gallery-img" alt="Галерея 2">
             <div class="card-body">
-              <p class="mb-0 text-secondary">Театр имени Алишера Навои (локальный файл).</p>
+              <div class="muted readable">Архитектура / памятник.</div>
             </div>
           </div>
         </div>
 
         <div class="col-md-6 col-lg-4">
-          <div class="card historic h-100">
-            <img src="img/navoi.jpg" class="img-fluid" alt="Портрет Навои">
+          <div class="card historic tilt gallery-card h-100">
+            <img src="img/navoi.jpg" class="gallery-img" alt="Портрет Навои">
             <div class="card-body">
-              <p class="mb-0 text-secondary">Портрет Навои (локальный файл).</p>
+              <div class="muted readable">Портрет Алишера Навои.</div>
             </div>
           </div>
         </div>
@@ -372,17 +599,14 @@
 
   <!-- SOURCES -->
   <section id="sources" class="section-pad">
-    <div class="container">
+    <div class="container container-narrow">
       <div class="ornament mb-4"><span>✦ ✧ ✦</span></div>
 
       <h2 class="fw-bold title-serif mb-3">Источники</h2>
-      <ol class="mb-0">
-        <li>Britannica — справка о Navāʾī (роль в чагатайской литературе).</li>
+      <ol class="readable muted mb-0">
+        <li>Britannica — справка о Navāʾī.</li>
         <li>Wikipedia — биография и обзор творчества.</li>
       </ol>
-      <div class="text-secondary small mt-3">
-        Совет: если преподаватель требует “URL”, просто вставь ссылки сюда текстом.
-      </div>
     </div>
   </section>
 
@@ -390,13 +614,57 @@
   <footer class="py-4">
     <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
       <div>© <span id="year"></span> Сайт про Алишера Навои</div>
-      <div class="small" style="opacity:.75">Bootstrap 5 • исторический стиль</div>
+      <div class="small" style="opacity:.75">Bootstrap 5 • темы • 3D эффекты</div>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <script>
+    // Год
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Тема (2 цвета)
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const label = document.getElementById('themeLabel');
+
+    function setTheme(t){
+      root.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+      label.textContent = (t === 'dark') ? 'Тёмная' : 'Светлая';
+    }
+
+    const saved = localStorage.getItem('theme');
+    if(saved === 'dark' || saved === 'light') setTheme(saved);
+
+    btn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || 'light';
+      setTheme(current === 'light' ? 'dark' : 'light');
+    });
+
+    // Лёгкий 3D tilt на карточках
+    const cards = document.querySelectorAll('.tilt');
+    const maxTilt = 8; // градусов
+
+    function handleMove(e, el){
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      const cx = r.width / 2;
+      const cy = r.height / 2;
+      const dx = (x - cx) / cx;
+      const dy = (y - cy) / cy;
+
+      const rx = (-dy) * maxTilt;
+      const ry = (dx) * maxTilt;
+      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+    }
+
+    cards.forEach(el => {
+      el.addEventListener('mousemove', (e) => handleMove(e, el));
+      el.addEventListener('mouseleave', () => { el.style.transform = 'none'; });
+    });
   </script>
 </body>
 </html>
